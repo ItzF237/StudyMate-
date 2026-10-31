@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#2358f5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>StudyMate – Learn Smarter, Achieve More</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,12 +82,129 @@ label{font-weight:700;font-size:.9rem;display:block;margin-bottom:4px}
 .stp{display:flex;gap:12px;align-items:flex-start}.stp b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--on);display:grid;place-items:center}
 .fc img{display:block;width:100%;height:190px;background:#071a40}.gal{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.gal figure{margin:0;border-radius:18px;overflow:hidden;position:relative}.gal img{width:100%;height:220px;object-fit:cover;display:block}.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 10px;color:#fff;background:linear-gradient(transparent,rgba(5,15,40,.85));font-weight:700}
 .opt.sel{border-color:var(--blue);background:var(--soft)}.opt:disabled{cursor:default}.rv{border-top:1px solid var(--line);padding:10px 0}.rv div{font-size:.92rem}
+
+/* ===== StudyMate dashboard layout ===== */
+:root{--bg:#f4f1ff;--surf:#ffffff;--ink:#1b1740;--mute:#6b6690;--blue:#6b3fd4;--blue2:#5530b0;--btn:#6b3fd4;--soft:#efe9ff;--line:#e4dcfa;--on:#fff;--ok:#12844a;--bad:#c9352b;--side:linear-gradient(180deg,#8b5cf6,#6334c9);--shadow:0 12px 30px -18px rgba(107,63,212,.45)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a40;--surf:#1d2558;--ink:#eef0ff;--mute:#a8b0da;--blue:#b79cff;--blue2:#d0bdff;--btn:#7c4dff;--soft:#28317a;--line:#34408a;--on:#fff;--side:linear-gradient(180deg,#232a6b,#171c4d);--shadow:0 12px 30px -18px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--bg:#141a40;--surf:#1d2558;--ink:#eef0ff;--mute:#a8b0da;--blue:#b79cff;--blue2:#d0bdff;--btn:#7c4dff;--soft:#28317a;--line:#34408a;--on:#fff;--side:linear-gradient(180deg,#232a6b,#171c4d);--shadow:0 12px 30px -18px rgba(0,0,0,.6)}
+html{background:var(--bg)}
+body{background:linear-gradient(180deg,color-mix(in srgb,var(--btn) 14%,var(--bg)) 0,var(--bg) 320px) var(--bg);padding-bottom:72px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{letter-spacing:-.015em;color:var(--ink)}h2{font-size:1.4rem}
+header{background:var(--side);border:0;color:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+.logo,.logo span{color:#fff}.logo span span{color:#ffd86b!important}
+.top button{color:rgba(255,255,255,.78)}
+.top button:hover{background:rgba(255,255,255,.14);color:#fff}
+.top button.on{background:#fff;color:#5a2fc0;box-shadow:0 8px 18px -10px rgba(0,0,0,.45)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .top button.on{background:linear-gradient(135deg,#7c4dff,#b44dff);color:#fff}}
+:root[data-theme="dark"] .top button.on{background:linear-gradient(135deg,#7c4dff,#b44dff);color:#fff}
+#fsBtn{margin-left:auto;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35);padding:8px 12px;line-height:1}
+#fsBtn:hover{background:rgba(255,255,255,.24)}
+#authBtn{background:#fff;color:#5a2fc0}#authBtn:hover{background:#f1eaff}
+.bnav{left:0;right:0;bottom:0;border-radius:0;border:0;border-top:1px solid var(--line);background:var(--surf);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px -14px rgba(107,63,212,.5)}
+.bnav button{border-radius:12px}.bnav button.on{color:var(--blue);background:var(--soft);font-weight:700}
+.btn{background:var(--btn);color:#fff;border-radius:12px;box-shadow:none;font-weight:700}
+.btn:hover{background:var(--blue2);color:#fff}
+.btn.alt{background:var(--surf);color:var(--blue);border:1px solid var(--line)}.btn.alt:hover{background:var(--soft);color:var(--blue)}
+.topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.tb-hi{flex:1;min-width:200px}.tb-hi small{display:block;color:var(--mute);font-size:.85rem}
+.tb-hi b{font:800 1.5rem "Bricolage Grotesque",sans-serif;color:var(--ink)}
+.tb-s{position:relative;flex:1 1 280px;max-width:520px}
+.tb-s input{margin:0;padding:12px 14px 12px 42px;border-radius:14px;background:var(--surf)}
+.tb-s::before{content:"";position:absolute;left:15px;top:50%;width:11px;height:11px;border:2px solid var(--mute);border-radius:50%;transform:translateY(-62%)}
+.tb-s::after{content:"";position:absolute;left:25px;top:calc(50% + 5px);width:6px;height:2px;background:var(--mute);transform:rotate(45deg)}
+.tb-av{width:44px;height:44px;border-radius:50%;background:var(--btn);color:#fff;display:grid;place-items:center;font:800 1.1rem "Bricolage Grotesque",sans-serif;box-shadow:var(--shadow)}
+.card{background:var(--surf);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+@media(hover:hover){.card:hover{transform:translateY(-2px)}}
+.fc img{height:170px;object-fit:cover}.fc .fb{padding:18px}
+.stat{font-size:2.2rem;color:var(--blue)}
+.tag,.chip{border-radius:8px}
+.hero2{background:linear-gradient(120deg,#4b24b3 0%,#6b3fd4 50%,#b06bff 120%);border-radius:22px;border:0;box-shadow:var(--shadow);gap:24px}
+.hero2 h1{font-size:clamp(2rem,5vw,3.3rem);color:#fff}
+.hero2 .btn{background:#fff;color:#4b24b3}.hero2 .btn:hover{background:#f3ecff;color:#4b24b3}
+.hero2 .btn.alt{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.55)}.hero2 .btn.alt:hover{background:rgba(255,255,255,.14);color:#fff}
+.band,.gal figure{border-radius:18px}
+input,select,textarea{border:1px solid var(--line);border-radius:12px;background:var(--surf);color:var(--ink)}
+input:focus,select:focus,textarea:focus{border-color:var(--btn);box-shadow:0 0 0 3px color-mix(in srgb,var(--btn) 22%,transparent)}
+.msg{border-radius:16px;line-height:1.55}
+.msg.u{background:var(--btn);color:#fff;border-bottom-right-radius:4px}
+.msg.a{background:var(--soft);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg code{background:rgba(127,127,127,.2);padding:1px 6px;border-radius:5px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.chat{max-height:58vh;min-height:300px}.chips button{border-radius:10px}
+.dt button{border-radius:10px}.dt button.on{background:var(--btn);border-color:var(--btn);color:#fff}
+.bar2{height:10px}.bar2 i{background:linear-gradient(90deg,var(--btn),#b44dff)}
+.drop{border-radius:18px;border:2px dashed color-mix(in srgb,var(--btn) 55%,var(--line));background:var(--soft)}
+.opt,.li{border-radius:12px}.opt:hover,.li:hover{border-color:var(--btn)}
+.note{border-radius:12px;border-left:4px solid var(--btn)}
+.av,.stp b{background:var(--btn);color:#fff}
+#remind{background:linear-gradient(135deg,#4b24b3,#7c4dff);border-radius:14px}
+.ring{--p:0;flex:none;width:86px;height:86px;border-radius:50%;background:conic-gradient(var(--btn) calc(var(--p)*1%),var(--soft) 0);display:grid;place-items:center;position:relative}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--surf)}
+.ring b{position:relative;font:800 1.15rem "Bricolage Grotesque",sans-serif;color:var(--ink)}
+#dashBody{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:start}
+#dashBody>h2,#dashBody>p,#dashBody>.row,#dashBody>.grid,#dashBody>.note{grid-column:1/-1;margin-top:0;margin-bottom:0}
+#dashBody>.grid>.card:first-child{display:flex;align-items:center;gap:16px}
+@media(min-width:800px){
+body{padding-bottom:0}
+header{position:fixed;top:0;left:0;bottom:0;width:264px;overflow-y:auto;box-shadow:12px 0 40px -28px rgba(75,36,179,.7)}
+.bar{flex-direction:column;align-items:stretch;justify-content:flex-start;height:100%;max-width:none;margin:0;padding:22px 16px;gap:8px}
+.logo{padding:6px 10px 22px;font-size:1.5rem}
+.top{display:flex;flex-direction:column;gap:4px;flex:1}
+.top button{text-align:left;padding:12px 16px;border-radius:12px}
+#fsBtn{margin-left:0;width:100%;text-align:left}#authBtn{width:100%}
+main{max-width:none;margin:0 0 0 264px;padding:28px clamp(24px,4vw,64px) 64px}
+.hero2{padding:56px 56px 0;gap:40px}.hero2 p{font-size:1.1rem}
+.grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+#toast{bottom:28px}
+}
+
+/* ===== reference dashboard layout ===== */
+#dashBody{display:block}
+.top .ni{display:inline-block;width:1.7em;filter:grayscale(1) brightness(2.6)}
+.top button.on .ni{filter:grayscale(1) brightness(.35)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .top button.on .ni{filter:grayscale(1) brightness(2.6)}}
+:root[data-theme="dark"] .top button.on .ni{filter:grayscale(1) brightness(2.6)}
+.logo{justify-content:center;background:rgba(255,255,255,.14);border-radius:18px;padding:12px 16px}
+.tb-av{order:0}.tb-hi{order:1;flex:1;min-width:140px}.tb-hi b{display:block}
+.tb-ic{order:3;width:44px;height:44px;border-radius:12px;border:0;background:var(--btn);color:#fff;cursor:pointer;font-size:1.1rem;box-shadow:var(--shadow)}
+.tb-ic span{filter:grayscale(1) brightness(4)}
+.tb-s{order:5;flex:1 1 100%;max-width:none}
+#exCard{display:none}
+.dg{display:inline-grid;place-items:center;width:24px;height:30px;border:1.5px solid var(--btn);border-radius:7px;font:800 .95rem "Bricolage Grotesque",sans-serif;color:var(--btn);background:var(--soft);margin:0 1px}
+.panel{background:color-mix(in srgb,var(--btn) 9%,var(--bg));border-radius:22px;padding:18px;margin-bottom:20px}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.ph h3{margin:0;color:var(--btn);font-size:1.1rem}
+.pill{border:1px solid var(--btn);color:var(--btn);background:transparent;border-radius:99px;padding:5px 16px;font:700 .8rem "Nunito Sans",sans-serif;cursor:pointer}
+.cgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.cc{background:var(--surf);border-radius:18px;padding:12px;box-shadow:var(--shadow);cursor:pointer}
+.ct{height:130px;border-radius:14px;display:grid;place-items:center;font-size:3.4rem}
+.g0{background:linear-gradient(135deg,#1b1f6e,#5b3df0)}.g1{background:linear-gradient(135deg,#c2410c,#f59e0b)}.g2{background:linear-gradient(135deg,#0f172a,#6d28d9)}
+.cc h4{margin:12px 2px 8px;font:800 1rem "Bricolage Grotesque",sans-serif;color:var(--ink)}
+.cr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 2px}
+.cm{display:grid;gap:4px;font-size:.78rem;color:var(--mute)}
+.cs{margin-top:10px;background:var(--soft);color:var(--btn);border-radius:10px;text-align:center;padding:8px;font-size:.78rem;font-weight:700}
+.ring.sm{width:54px;height:54px}.ring.sm::before{inset:6px}.ring.sm b{font-size:.78rem}
+.drow{display:grid;gap:18px;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);margin-bottom:20px}
+.stwo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.sc{display:flex;align-items:center;justify-content:space-between}.sc .n{font:800 2rem "Bricolage Grotesque",sans-serif;color:var(--btn)}.sc .e{font-size:2.6rem}
+.bd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:.72rem;color:var(--mute)}
+.bd i{display:grid;place-items:center;font-style:normal;width:46px;height:46px;margin:0 auto 6px;border-radius:50%;font-size:1.4rem;background:var(--soft);filter:grayscale(1);opacity:.55}
+.bd .got i{filter:none;opacity:1;background:linear-gradient(135deg,#ffd86b,#f59e0b)}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.dh h3{margin:0}
+.dmore{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:start}.dmore .card{margin-top:0}
+@media(max-width:900px){.drow{grid-template-columns:1fr}}
+@media(min-width:800px){
+.tb-ic{order:3}.tb-s{order:2;flex:1 1 280px;max-width:520px}
+#exCard.on{display:block;background:var(--surf);color:var(--ink);border-radius:18px;padding:14px 10px;text-align:center;margin-bottom:6px}
+#exCard small{display:block;font-weight:700;margin-bottom:8px}
+#exCard .dl{display:flex;justify-content:center;gap:14px;font-size:.62rem;color:var(--mute);margin-top:3px}
+#exCard .bk{font-size:2.4rem;margin-top:6px}
+}
 </style>
 </head>
 <body>
 <header><div class="bar">
 <button class="logo" data-go="home" aria-label="StudyMate home" style="display:flex;align-items:center;gap:8px"><img src="data:image/jpeg;base64,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" width="36" height="36" alt="" style="border-radius:10px"><span>Study<span style="color:#0aa5ff">Mate</span></span></button>
 <nav class="top" id="top"></nav>
+<button class="btn alt sm" id="fsBtn" aria-label="Toggle full screen" title="Full screen">⛶ <span class="fsl" style="display:none">Full screen</span></button>
 <button class="btn sm" id="authBtn" data-go="login">Log in</button>
 </div></header>
 
@@ -124,7 +244,7 @@ label{font-weight:700;font-size:.9rem;display:block;margin-bottom:4px}
 </div>
 
 <div class="card" style="margin:22px 0 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="orb" style="width:64px;height:64px"></div><div style="flex:1;min-width:220px"><h3 style="margin:0 0 4px">Meet Mate AI</h3><p class="mute" style="margin:0">Your study buddy for explanations and reminders. Its answers are demos until a real AI service is connected.</p></div><button class="btn" data-go="plan">Plan my week</button></div>
-<div class="note">This is a prototype. Look for the “Demo” and “Sample” notes on each page to see what is real and what needs extra setup.</div>
+<div class="note">Sample lessons on this site are examples, not official curriculum. AI answers can contain mistakes, so always check important work with your teacher.</div>
 </section>
 
 <!-- DASHBOARD -->
@@ -212,7 +332,7 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return
 var $=function(i){return document.getElementById(i)};
 function toast(t){var e=$("toast");e.textContent=t;e.classList.add("show");setTimeout(function(){e.classList.remove("show")},2400)}
 
-$("top").innerHTML=NAV.map(function(n){return '<button data-go="'+n[0]+'">'+n[2]+'</button>'}).join("");
+$("top").innerHTML=NAV.map(function(n){return '<button data-go="'+n[0]+'"><span class="ni">'+n[1]+'</span>'+n[2]+'</button>'}).join("");
 $("bnav").innerHTML=NAV.filter(function(n){return n[0]!=="homework"&&n[0]!=="tutors"}).map(function(n){return '<button data-go="'+n[0]+'"><span>'+n[1]+'</span>'+n[2].replace("Dashboard","Me").replace("Timetable","Plan")+'</button>'}).join("");
 
 var cur="home";
@@ -352,7 +472,7 @@ document.addEventListener("click",function(e){var t=e.target.closest("[data-l],[
  else if(d.lc||d.ls){var arr=d.lc?user.ld:user.saved,k2=arr.indexOf(OPEN);if(k2>-1)arr.splice(k2,1);else arr.push(OPEN);save();renderLearn()}});
 
 /* AI TUTOR: real AI through the StudyMate server (no scripted answers) */
-var AI_API="https://studymate-1fk3.onrender.com";
+var AI_API="";
 var IDEAS=["Explain photosynthesis","Quiz me for GCE O Level Maths","Solve x² − 5x + 6 = 0 step by step","Make revision notes on Newton’s laws"];
 $("chips").innerHTML=IDEAS.map(function(i){return '<button class="btn alt sm">'+i+'</button>'}).join("");
 var HIST=[],BUSY=false;
@@ -608,6 +728,60 @@ setInterval(function(){if(!user)return;var n=new Date(),k=n.toDateString();PLN.i
  if(df>=0&&df<60000&&!fired[it.id+k]){fired[it.id+k]=1;notify("Time to study "+it.subj+"!",(PLN.lead?"Starts in "+PLN.lead+" min at ":"Starting now at ")+it.time+". "+it.tip)}})},10000);
 
 authUI();go(location.hash.slice(1)||"home");
+
+/* full screen toggle */
+(function(){var b=document.getElementById("fsBtn"),de=document.documentElement;
+ if(!b||!(de.requestFullscreen||de.webkitRequestFullscreen)){if(b)b.style.display="none";return}
+ b.onclick=function(){var on=document.fullscreenElement||document.webkitFullscreenElement;
+  if(on){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{(de.requestFullscreen||de.webkitRequestFullscreen).call(de)}};})();
+
+/* reference-style dashboard, top bar, exam countdown */
+(function(){var m=document.querySelector("main");if(!m)return;var $=function(i){return document.getElementById(i)};
+ var t=document.createElement("div");t.className="topbar";
+ t.innerHTML='<div class="tb-av" id="tbA" aria-hidden="true"></div><div class="tb-hi"><small id="tbS"></small><b id="tbN"></b></div><div class="tb-s"><input id="gs" placeholder="Search lessons…" aria-label="Search lessons"></div><button class="tb-ic" data-go="tutor" aria-label="AI Tutor"><span>💬</span></button><button class="tb-ic" data-go="plan" aria-label="Timetable"><span>🔔</span></button>';
+ m.insertBefore(t,m.firstChild);
+ var ex=document.createElement("div");ex.id="exCard";var fb=$("fsBtn");if(fb)fb.parentNode.insertBefore(ex,fb);
+ var p2=function(n){return(n<10?"0":"")+n},dg=function(n){return p2(n).split("").map(function(c){return '<span class="dg">'+c+'</span>'}).join("")};
+ function exUpd(){if(!user){ex.className="";return}ex.className="on";
+  if(!user.rdate){ex.innerHTML='<small>Exam date not set</small><button class="btn sm" id="exSet">Set date</button><div class="bk">📚</div>';$("exSet").onclick=function(){EDIT=true;go("reg")};return}
+  var ms=Math.max(0,new Date(user.rdate+"T00:00:00")-new Date());
+  ex.innerHTML='<small>Exam Starts In</small>'+dg(Math.floor(ms/864e5))+':'+dg(Math.floor(ms%864e5/36e5))+':'+dg(Math.floor(ms%36e5/6e4))+'<div class="dl"><span>Days</span><span>Hours</span><span>Minutes</span></div><div class="bk">📚</div>'}
+ function upd(){var n=user&&user.rn?user.rn.split(" ")[0]:"";
+  $("tbS").textContent=n?"Welcome":"Welcome to StudyMate";$("tbN").textContent=n||"Learn Smarter, Achieve More";
+  $("tbA").textContent=n?n.charAt(0).toUpperCase():"S";exUpd();
+  document.querySelectorAll('#top [data-go="dash"],#bnav [data-go="dash"]').forEach(function(b){b.style.display="none"});
+  if(cur==="dash")document.querySelectorAll('#top [data-go="home"],#bnav [data-go="home"]').forEach(function(b){b.classList.add("on")})}
+ $("gs").onkeydown=function(e){if(e.key!=="Enter")return;var q=this.value.trim();OPEN=null;if(user)$("lq").value=q;go("learn");this.value=""};
+ var g0=go;go=function(v){if(user&&v==="home")v="dash";g0(v);upd()};
+ setInterval(exUpd,30000);
+ function ico(s){s=s.toLowerCase();return/math/.test(s)?"🧮":/phys/.test(s)?"⚛️":/chem/.test(s)?"🧪":/bio|svt/.test(s)?"🧬":/engl|lang|liter|fran/.test(s)?"📖":/comp|ict|info/.test(s)?"💻":/geo/.test(s)?"🌍":/hist/.test(s)?"🏛️":/econ|commerc|account/.test(s)?"📈":"📚"}
+ function left(at){var m=Math.round((at-new Date())/60000);return m>=1440?Math.floor(m/1440)+"d "+Math.floor(m%1440/60)+"h":Math.floor(m/60)+"h "+(m%60)+"m"}
+ function sub(s,i){var ls=LESSONS.filter(function(l){return l.s.indexOf(s)>-1}),d=ls.filter(function(l){return user.ld.indexOf(l.id)>-1}).length,p=ls.length?Math.round(d/ls.length*100):0,nx=nextS();
+  return '<div class="cc" data-go="learn"><div class="ct g'+(i%3)+'"><span>'+ico(s)+'</span></div><h4>'+esc(s)+'</h4><div class="cr"><div class="cm"><span>▶ '+ls.length+' lessons</span><span>✔ '+d+' completed</span></div><div class="ring sm" style="--p:'+p+'"><b>'+p+'%</b></div></div><div class="cs">'+(nx&&nx.it.subj===s?"Next revision in "+left(nx.at):"Open lessons →")+'</div></div>'}
+ function chart(){var hs=hist.slice(-12);if(!hs.length)return '<p class="mute" style="margin:0">No quizzes yet. Take one to see your grades here.</p><button class="btn sm" data-go="quiz" style="margin-top:10px">Take a quiz</button>';
+  var n=hs.length,X=function(i){return 36+(n>1?i*(344/(n-1)):172)},Y=function(p){return 160-p*1.4},pt=hs.map(function(h,i){return[X(i),Y(h.pct)]}),d="M"+pt[0][0]+" "+pt[0][1];
+  for(var i=1;i<n;i++){var a=pt[i-1],b=pt[i],c=(a[0]+b[0])/2;d+=" C"+c+" "+a[1]+" "+c+" "+b[1]+" "+b[0]+" "+b[1]}
+  var hi=0;hs.forEach(function(h,i){if(h.pct>hs[hi].pct)hi=i});var hp=pt[hi],tx=Math.min(Math.max(hp[0]-46,30),304),ty=hp[1]<44?hp[1]+12:hp[1]-34;
+  var g=[0,25,50,75,100].map(function(v){return '<line x1="30" x2="392" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--line)"/><text x="2" y="'+(Y(v)+4)+'" font-size="10" fill="var(--mute)">'+v+'</text>'}).join("");
+  return '<svg viewBox="0 0 400 180" role="img" aria-label="Quiz scores over time"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--btn);stop-opacity:.45"/><stop offset="1" style="stop-color:var(--btn);stop-opacity:0"/></linearGradient></defs>'+g+(n>1?'<path d="'+d+' L'+pt[n-1][0]+' 160 L'+pt[0][0]+' 160Z" fill="url(#cg)"/><path d="'+d+'" fill="none" style="stroke:var(--btn)" stroke-width="2.5"/>':'')+'<circle cx="'+hp[0]+'" cy="'+hp[1]+'" r="4.5" style="fill:var(--btn)"/><rect x="'+tx+'" y="'+ty+'" width="92" height="22" rx="6" style="fill:var(--ink)"/><text x="'+(tx+46)+'" y="'+(ty+15)+'" text-anchor="middle" font-size="11" font-weight="700" style="fill:var(--bg)">Highest '+hs[hi].pct+'%</text></svg>'}
+ renderDash=function(){var u=user;if(!u)return;var now=new Date(),td=now.getDay(),dk=now.toDateString();
+  var lvl=u.rt==="uni"?[u.rdeg,u.ryr,u.rprog].join(" · "):[u.rlev,u.rstr,u.rser?"Série "+u.rser:"",u.rspec,u.ray].filter(Boolean).join(" · ");
+  var ml=LESSONS.filter(mine),dn=ml.filter(function(l){return u.ld.indexOf(l.id)>-1}).length;
+  var rec=ml.filter(function(l){return u.ld.indexOf(l.id)<0}).slice(0,3).map(lessonBtn).join("")||'<p class="mute" style="margin:0">No more sample lessons for your subjects yet.</p>';
+  var tdi=PLN.items.filter(function(i){return i.day===td}).map(function(i){return '<div class="row" style="justify-content:space-between;padding:4px 0"><span>'+i.time+' · '+esc(i.subj)+'</span><span class="tag">'+(PLN.done[i.id+dk]?"Done":"To do")+'</span></div>'}).join("")||'<p class="mute" style="margin:0">No revision planned today.</p>';
+  var sv=LESSONS.filter(function(l){return u.saved.indexOf(l.id)>-1}).map(lessonBtn).join("")||'<p class="mute" style="margin:0">Nothing saved yet.</p>';
+  var B=[["📚","First lesson",dn>=1],["📝","First quiz",hist.length>=1],["🏆","Score 70%+",hist.some(function(h){return h.pct>=70})],["🗓️","Plan built",PLN.items.length>0]],got=B.filter(function(b){return b[2]}).length;
+  var subs=(u.subs||[]).slice(0,3);
+  $("dashBody").innerHTML='<p class="mute" style="margin:0 0 14px">'+esc(lvl)+(u.rinst?" · "+esc(u.rinst):"")+'</p>'
+  +'<div class="panel"><div class="ph"><h3>Active Courses</h3><button class="pill" data-go="learn">See All</button></div>'+(subs.length?'<div class="cgrid">'+subs.map(sub).join("")+'</div>':'<p class="mute" style="margin:0">Add subjects to your profile to see your courses here.</p>')+'</div>'
+  +'<div class="drow"><div class="card ch"><div class="dh"><h3>Exam Grade Statistics</h3><span class="tag">Last '+Math.min(hist.length,12)+' quizzes</span></div>'+chart()+'</div>'
+  +'<div><div class="stwo"><div class="card sc"><div><h3 style="margin:0 0 4px;font-size:1rem">Total Courses</h3><div class="n">'+ml.length+'</div></div><div class="e">📚</div></div><div class="card sc"><div><h3 style="margin:0 0 4px;font-size:1rem">Quizzes Taken</h3><div class="n">'+hist.length+'</div></div><div class="e">📝</div></div></div>'
+  +'<div class="card"><div class="dh"><h3>Achievements</h3><span class="mute">'+got+'/4</span></div><div class="bd">'+B.map(function(b){return '<div'+(b[2]?' class="got"':'')+'><i>'+b[0]+'</i>'+b[1]+'</div>'}).join("")+'</div></div></div></div>'
+  +'<div class="dmore"><div class="card"><h3>Recommended lessons</h3>'+rec+'</div><div class="card"><h3>Today’s study timetable</h3>'+tdi+'</div><div class="card"><h3>Next revision session</h3>'+nextHTML()+'</div><div class="card"><h3>Saved lessons</h3>'+sv+'</div></div>'
+  +'<div class="row" style="margin-top:18px"><button class="btn" data-go="tutor">Ask Mate AI</button><button class="btn alt" id="edp">Edit profile and timetable</button></div>'
+  +'<div class="note">Sample data: lessons and quizzes are examples for testing, not official curriculum.</div>';
+  $("edp").onclick=function(){EDIT=true;go("reg")}};
+ go(cur||"home")})();
 </script>
 </body>
 </html>
