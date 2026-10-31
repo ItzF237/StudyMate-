@@ -1048,5 +1048,107 @@ if(cur==="learn")renderLearn();
 })();
 </script>
 
+<script>
+/* QUESTION BANK EXPANSION: computed questions (answers are calculated) + Cameroon knowledge questions */
+(function(){
+var P=[["water (H₂O)",18,"H = 1, O = 16"],["carbon dioxide (CO₂)",44,"C = 12, O = 16"],["sodium hydroxide (NaOH)",40,"Na = 23, O = 16, H = 1"],["calcium carbonate (CaCO₃)",100,"Ca = 40, C = 12, O = 16"],["magnesium oxide (MgO)",40,"Mg = 24, O = 16"],["sulfuric acid (H₂SO₄)",98,"H = 1, S = 32, O = 16"],["ammonia (NH₃)",17,"N = 14, H = 1"],["methane (CH₄)",16,"C = 12, H = 1"]];
+var K=0.53;function H(a,b,c,d,n,sd,f){G(a,b,c,d,Math.max(8,Math.round(n*K)),sd,f)}
+var RW=`History|O|Cameroon history|1|On which date did French Cameroun become independent?|1 January 1960;1 October 1961;20 May 1972;11 February 1961|0|French Cameroun became independent on 1 January 1960.
+History|O|Cameroon history|1|Who was the first President of Cameroon?|Ahmadou Ahidjo;Paul Biya;John Ngu Foncha;Um Nyobe|0|Ahmadou Ahidjo led Cameroon from independence in 1960.
+History|O|Cameroon history|2|On which date did Southern Cameroons join La République du Cameroun?|1 January 1960;1 October 1961;20 May 1972;12 July 1884|1|Reunification took place on 1 October 1961.
+History|O|Cameroon history|2|What happened in Cameroon on 20 May 1972?|Independence;A referendum created a unitary state;The plebiscite;The Berlin Conference|1|The referendum replaced the federation with the United Republic of Cameroon.
+History|O|Colonial history|2|Which European power first made Cameroon a protectorate in 1884?|Britain;France;Germany;Portugal|2|Germany signed a treaty with the Duala chiefs in July 1884.
+History|O|Colonial history|2|After World War I, Cameroon was divided between which two powers?|Britain and France;Germany and Britain;France and Spain;Belgium and Britain|0|The League of Nations gave mandates to Britain and France.
+Geography|O|Cameroon geography|1|What is the capital city of Cameroon?|Douala;Yaoundé;Bamenda;Garoua|1|Yaoundé is the political capital.
+Geography|O|Cameroon geography|1|Which is the highest mountain in Cameroon?|Mount Kupe;Mount Oku;Mount Cameroon;Mount Manengouba|2|Mount Cameroon is about 4,040 m high.
+Geography|O|Cameroon geography|2|Which is the economic capital of Cameroon?|Yaoundé;Douala;Limbe;Bafoussam|1|Douala has the country’s main seaport.
+Geography|O|Cameroon geography|2|In which part of Cameroon is Lake Chad found?|South;Far North;West;East|1|The Far North borders Lake Chad.
+Civic Education|O|National symbols|1|What are the colours of the Cameroon flag?|Green, red and yellow;Blue, white and red;Black, red and gold;Green and white|0|It has green, red and yellow stripes with a yellow star.
+Civic Education|O|National symbols|1|What is the national motto of Cameroon?|Peace, Work, Fatherland;Unity, Work, Progress;Liberty, Equality, Fraternity;Faith, Unity|0|The motto is Peace, Work, Fatherland.
+Civic Education|O|Rights and duties|1|Paying taxes is a duty of a citizen.|True;False|0|Citizens must pay taxes to support public services.
+English Language|O|Grammar|1|What is the plural of “child”?|Childs;Children;Childen;Childes|1|Child has an irregular plural.
+English Language|O|Grammar|1|Choose the correct form: “She ___ to school every day.”|go;goes;going;gone|1|A singular subject takes “goes”.
+English Language|O|Vocabulary|2|What is the opposite of “generous”?|Kind;Selfish;Brave;Careful|1|A generous person gives freely, while a selfish one does not.
+English Language|O|Grammar|2|“Neither of the boys ___ ready.” Which verb completes it?|are;were;is;be|2|Neither takes a singular verb.
+French|O|Grammaire|1|Comment dit-on “thank you” en français ?|Bonjour;Merci;Salut;Pardon|1|« Merci » veut dire thank you.
+French|O|Grammaire|2|Complétez : « Nous ___ au marché. » (aller)|allons;allez;vont;vais|0|Avec « nous », on écrit « allons ».
+Biology|O|Nutrition|1|Which nutrient is the main source of energy?|Proteins;Carbohydrates;Vitamins;Water|1|Carbohydrates provide most of the body’s energy.
+Chemistry|O|Chemical symbols|1|What is the chemical symbol for sodium?|S;So;Na;N|2|Sodium’s symbol Na comes from natrium.
+Physics|O|Units|1|What is the SI unit of force?|Joule;Newton;Watt;Pascal|1|Force is measured in newtons (N).
+Literature in English|O|Literary terms|2|A comparison using “like” or “as” is called a…|Metaphor;Simile;Personification;Hyperbole|1|A simile compares using “like” or “as”.`;
+RW.split("\n").forEach(function(r){var f=r.split("|");if(f.length<8)return;var o=f[5].split(";");add(f[0],f[1],f[2],+f[3],o.length==2?"tf":"mcq",f[4],o,+f[6],f[7])});
+G("Mathematics","P","Addition",1,40,701,r=>{var a=r(100,899),b=r(100,899);return["What is "+a+" + "+b+"?",a+b,a+" + "+b+" = "+(a+b)+"."]});
+H("Mathematics","P","Subtraction",1,40,702,r=>{var a=r(500,999),b=r(100,499);return["What is "+a+" − "+b+"?",a-b,a+" − "+b+" = "+(a-b)+"."]});
+H("Mathematics","P","Division",1,40,703,r=>{var b=r(3,12),k=r(5,40);return["What is "+b*k+" ÷ "+b+"?",k,b*k+" ÷ "+b+" = "+k+"."]});
+H("Mathematics","P","Fraction of an amount",1,40,704,r=>{var d=r(2,10),n=r(1,d-1),k=r(2,12);return["What is "+n+"/"+d+" of "+d*k+"?",n*k,"Divide "+d*k+" by "+d+" to get "+k+", then multiply by "+n+": "+n*k+"."]});
+H("Mathematics","L","Simple interest",2,50,705,r=>{var p=1000*r(1,50),R=r(2,12),t=r(1,8);return["Find the simple interest on "+p+" FCFA at "+R+"% per year for "+t+" years.",p*R*t/100,"I = PRT/100 = "+p+" × "+R+" × "+t+" ÷ 100 = "+p*R*t/100+" FCFA."]});
+H("Mathematics","L","Mean",2,50,706,r=>{var a=[r(2,30),r(2,30),r(2,30),r(2,30)],s=a[0]+a[1]+a[2]+a[3],x=5-s%5+5*r(0,3);return["Find the mean of "+a.join(", ")+" and "+x+".",(s+x)/5,"The total is "+(s+x)+". Divide by 5 to get "+(s+x)/5+"."]});
+H("Mathematics","L","Ratio",2,50,707,r=>{var a=r(1,5),b=r(a+1,9),k=10*r(1,40);return["Share "+k*(a+b)+" FCFA in the ratio "+a+" : "+b+". What is the larger share?",k*b,"Total parts = "+(a+b)+". One part = "+k+". Larger share = "+b+" × "+k+" = "+k*b+"."]});
+H("Mathematics","L","Speed, distance and time",2,50,708,r=>{var s=r(20,90),t=r(2,9);return["A bus travels at "+s+" km/h for "+t+" hours. What distance does it cover in km?",s*t,"Distance = speed × time = "+s+" × "+t+" = "+s*t+" km."]});
+H("Mathematics","L","Area of a circle",2,40,709,r=>{var k=r(1,6);return["Using π = 22/7, find the area of a circle of radius "+7*k+" cm in cm².",154*k*k,"Area = 22/7 × "+7*k+" × "+7*k+" = "+154*k*k+" cm²."]});
+H("Mathematics","L","Volume of a cuboid",1,40,710,r=>{var a=r(2,20),b=r(2,15),c=r(2,12);return["Find the volume of a cuboid "+a+" cm by "+b+" cm by "+c+" cm in cm³.",a*b*c,"Volume = "+a+" × "+b+" × "+c+" = "+a*b*c+" cm³."]});
+H("Mathematics","O","Indices",2,30,711,r=>{var a=r(2,12),b=r(2,12);return["Simplify 2^"+a+" × 2^"+b+" = 2^n. What is n?",a+b,"Add the powers: "+a+" + "+b+" = "+(a+b)+"."]});
+H("Mathematics","O","Simultaneous equations",2,50,712,r=>{var x=r(2,20),y=r(1,x-1);return["Solve x + y = "+(x+y)+" and x − y = "+(x-y)+". What is x?",x,"Add the equations: 2x = "+2*x+", so x = "+x+"."]});
+H("Mathematics","O","Arithmetic progression",2,50,713,r=>{var a=r(1,20),d=r(2,9),n=r(6,30);return["An AP has first term "+a+" and common difference "+d+". Find its "+n+"th term.",a+(n-1)*d,"nth term = a + (n − 1)d = "+a+" + "+(n-1)+" × "+d+" = "+(a+(n-1)*d)+"."]});
+H("Mathematics","O","Polygons",2,25,714,r=>{var n=r(5,30);return["How many diagonals does a polygon with "+n+" sides have?",n*(n-3)/2,"Diagonals = n(n − 3)/2 = "+n+" × "+(n-3)+" ÷ 2 = "+n*(n-3)/2+"."]});
+H("Mathematics","O","Surface area of a cuboid",2,40,715,r=>{var a=r(2,15),b=r(2,12),c=r(2,10);return["Find the total surface area of a cuboid "+a+" cm by "+b+" cm by "+c+" cm in cm².",2*(a*b+b*c+a*c),"Total surface area = 2(lb + bh + lh) = 2("+a*b+" + "+b*c+" + "+a*c+") = "+2*(a*b+b*c+a*c)+" cm²."]});
+H("Mathematics","O","Volume of a cylinder",2,40,716,r=>{var k=r(1,4),h=r(2,20);return["Using π = 22/7, find the volume of a cylinder of radius "+7*k+" cm and height "+h+" cm in cm³.",154*k*k*h,"V = πr²h = 22/7 × "+49*k*k+" × "+h+" = "+154*k*k*h+" cm³."]});
+H("Mathematics","O","Angles in polygons",2,25,717,r=>{var n=r(5,30);return["What is the sum of the interior angles of a polygon with "+n+" sides, in degrees?",(n-2)*180,"Sum = (n − 2) × 180 = "+(n-2)+" × 180 = "+(n-2)*180+"°."]});
+H("Mathematics","O","Percentage change",2,40,718,r=>{var p=20*r(2,40),q=[5,10,15,20,25,30,40,50][r(0,7)];return["A price of "+p*5+" FCFA increases by "+q+"%. What is the new price in FCFA?",p*5*(100+q)/100,"New price = "+p*5+" × "+(100+q)+"/100 = "+p*5*(100+q)/100+" FCFA."]});
+H("Mathematics","L","Evaluating expressions",2,40,719,r=>{var a=r(1,5),b=r(-9,9),c=r(-9,9),x=r(-4,6);return["Find the value of "+a+"x² + ("+b+")x + ("+c+") when x = "+x+".",a*x*x+b*x+c,"Substitute x = "+x+": "+a+"("+x*x+") + ("+b*x+") + ("+c+") = "+(a*x*x+b*x+c)+"."]});
+H("Mathematics","O","Logarithms",3,20,720,r=>{var b=[2,3,5,10][r(0,3)],k=r(2,6);return["Evaluate log base "+b+" of "+Math.pow(b,k)+".",k,b+"^"+k+" = "+Math.pow(b,k)+", so the logarithm is "+k+"."]});
+H("Mathematics","A","Gradient of a line",2,40,721,r=>{var m=r(-6,9),dx=r(1,8),x1=r(-5,5),y1=r(-9,9);return["Find the gradient of the line through ("+x1+", "+y1+") and ("+(x1+dx)+", "+(y1+m*dx)+").",m,"Gradient = change in y ÷ change in x = "+m*dx+" ÷ "+dx+" = "+m+"."]});
+H("Mathematics","A","Determinants",2,50,722,r=>{var a=r(-5,9),b=r(-5,9),c=r(-5,9),d=r(-5,9);return["Find the determinant of the matrix with rows ("+a+", "+b+") and ("+c+", "+d+").",a*d-b*c,"det = ad − bc = ("+a+")("+d+") − ("+b+")("+c+") = "+(a*d-b*c)+"."]});
+H("Mathematics","A","Vectors: dot product",2,50,723,r=>{var a=r(-6,9),b=r(-6,9),c=r(-6,9),d=r(-6,9);return["Find the scalar product of ("+a+", "+b+") and ("+c+", "+d+").",a*c+b*d,"a·b = ("+a+")("+c+") + ("+b+")("+d+") = "+(a*c+b*d)+"."]});
+H("Further Mathematics","A","Geometric series",3,30,724,r=>{var a=r(1,40);return["A geometric series has first term "+a+" and common ratio 1/2. What is its sum to infinity?",2*a,"S∞ = a/(1 − r) = "+a+" ÷ 0.5 = "+2*a+"."]});
+H("Physics","O","Force",1,40,731,r=>{var m=r(2,40),a=r(2,15);return["A force acts on a mass of "+m+" kg and gives it an acceleration of "+a+" m/s². What is the force in N?",m*a,"F = ma = "+m+" × "+a+" = "+m*a+" N."]});
+H("Physics","O","Ohm’s law",1,40,732,r=>{var i=r(2,12),R=r(2,50);return["A current of "+i+" A flows through a resistor of "+R+" Ω. What is the voltage in V?",i*R,"V = IR = "+i+" × "+R+" = "+i*R+" V."]});
+H("Physics","O","Density",2,40,733,r=>{var v=r(2,20),d=r(2,15);return["A block of mass "+d*v+" g has volume "+v+" cm³. What is its density in g/cm³?",d,"Density = mass ÷ volume = "+d*v+" ÷ "+v+" = "+d+" g/cm³."]});
+H("Physics","O","Work done",1,40,734,r=>{var f=r(5,80),d=r(2,30);return["A force of "+f+" N moves an object "+d+" m in its own direction. How much work is done in J?",f*d,"W = Fd = "+f+" × "+d+" = "+f*d+" J."]});
+H("Physics","O","Power",2,40,735,r=>{var p=r(5,100),t=r(2,30);return["A machine does "+p*t+" J of work in "+t+" s. What is its power in W?",p,"P = W ÷ t = "+p*t+" ÷ "+t+" = "+p+" W."]});
+H("Physics","O","Kinetic energy",2,40,736,r=>{var m=2*r(1,20),v=r(2,15);return["Find the kinetic energy in J of a "+m+" kg object moving at "+v+" m/s.",m/2*v*v,"KE = ½mv² = ½ × "+m+" × "+v*v+" = "+m/2*v*v+" J."]});
+H("Physics","O","Pressure",2,40,737,r=>{var A=r(2,25),p=r(5,100);return["A force of "+p*A+" N acts on an area of "+A+" m². What is the pressure in Pa?",p,"Pressure = force ÷ area = "+p*A+" ÷ "+A+" = "+p+" Pa."]});
+H("Physics","O","Waves",2,40,738,r=>{var f=r(2,50),l=r(1,20);return["A wave has frequency "+f+" Hz and wavelength "+l+" m. What is its speed in m/s?",f*l,"v = fλ = "+f+" × "+l+" = "+f*l+" m/s."]});
+H("Physics","O","Electrical energy",2,30,739,r=>{var p=r(1,5),t=r(1,24);return["An appliance rated "+p+" kW runs for "+t+" hours. How many kWh of energy does it use?",p*t,"Energy = power × time = "+p+" × "+t+" = "+p*t+" kWh."]});
+H("Physics","O","Resistors in series",1,30,740,r=>{var a=r(1,30),b=r(1,30),c=r(1,30);return["Resistors of "+a+" Ω, "+b+" Ω and "+c+" Ω are connected in series. What is the total resistance in Ω?",a+b+c,"Add them: "+a+" + "+b+" + "+c+" = "+(a+b+c)+" Ω."]});
+H("Physics","O","Heat energy",3,40,741,r=>{var m=r(1,5),t=r(5,60);return["How much heat in J is needed to raise the temperature of "+m+" kg of water by "+t+" °C? (specific heat capacity of water = 4200 J/kg°C)",m*4200*t,"Q = mcΔθ = "+m+" × 4200 × "+t+" = "+m*4200*t+" J."]});
+H("Physics","O","Moments",2,40,742,r=>{var f=r(2,40),d=r(1,12);return["A force of "+f+" N acts at "+d+" m from a pivot. What is its moment in N m?",f*d,"Moment = force × distance = "+f+" × "+d+" = "+f*d+" N m."]});
+H("Physics","O","Equations of motion",2,40,743,r=>{var u=r(0,20),a=r(1,9),t=r(2,12);return["A car starts at "+u+" m/s and accelerates at "+a+" m/s² for "+t+" s. What is its final speed in m/s?",u+a*t,"v = u + at = "+u+" + "+a+" × "+t+" = "+(u+a*t)+" m/s."]});
+H("Physics","O","Momentum",2,30,744,r=>{var m=r(2,60),v=r(2,25);return["Find the momentum in kg m/s of a "+m+" kg object moving at "+v+" m/s.",m*v,"p = mv = "+m+" × "+v+" = "+m*v+" kg m/s."]});
+H("Physics","O","Efficiency",2,30,745,r=>{var e=[20,25,40,50,60,75,80][r(0,6)],t=20*r(1,50);return["A machine takes in "+t+" J of energy and gives out "+e*t/100+" J of useful energy. What is its efficiency in %?",e,"Efficiency = useful ÷ total × 100 = "+e*t/100+" ÷ "+t+" × 100 = "+e+"%."]});
+H("Chemistry","O","Moles from mass",2,40,751,r=>{var c=P[r(0,7)],k=r(1,9);return["How many moles are in "+k*c[1]+" g of "+c[0]+"? ("+c[2]+")",k,"Mr = "+c[1]+". Moles = mass ÷ Mr = "+k*c[1]+" ÷ "+c[1]+" = "+k+"."]});
+H("Chemistry","O","Mass from moles",2,40,752,r=>{var c=P[r(0,7)],k=r(1,9);return["What is the mass in g of "+k+" mol of "+c[0]+"? ("+c[2]+")",k*c[1],"Mr = "+c[1]+". Mass = moles × Mr = "+k+" × "+c[1]+" = "+k*c[1]+" g."]});
+H("Chemistry","O","Atomic structure",1,40,753,r=>{var z=r(3,30),n=r(3,20);return["An atom has atomic number "+z+" and mass number "+(z+n)+". How many neutrons does it have?",n,"Neutrons = mass number − atomic number = "+(z+n)+" − "+z+" = "+n+"."]});
+H("Chemistry","O","Concentration",2,40,754,r=>{var c=r(1,9),v=r(2,10);return["A solution contains "+c*v+" mol of solute in "+v+" dm³. What is its concentration in mol/dm³?",c,"Concentration = moles ÷ volume = "+c*v+" ÷ "+v+" = "+c+" mol/dm³."]});
+H("Chemistry","O","Electrolysis",3,40,755,r=>{var i=r(2,10),t=r(10,600);return["A current of "+i+" A flows for "+t+" s in electrolysis. What charge in coulombs passes?",i*t,"Q = It = "+i+" × "+t+" = "+i*t+" C."]});
+H("Chemistry","O","Gas volumes",2,40,756,r=>{var n=r(1,9);return["What volume in dm³ do "+n+" mol of any gas occupy at room temperature and pressure? (1 mol = 24 dm³)",24*n,"Volume = moles × 24 = "+n+" × 24 = "+24*n+" dm³."]});
+H("Biology","O","Magnification",2,40,761,r=>{var a=r(2,50),m=[10,20,40,50,100][r(0,4)];return["A cell is "+a+" µm long. A drawing shows it "+a*m/1000+" mm long ("+a*m+" µm). What is the magnification?",m,"Magnification = image size ÷ actual size = "+a*m+" ÷ "+a+" = "+m+"."]});
+H("Biology","O","Heart rate",1,30,762,r=>{var b=r(60,100),t=r(2,10);return["A person’s heart beats "+b+" times per minute. How many beats occur in "+t+" minutes?",b*t,b+" × "+t+" = "+b*t+" beats."]});
+H("Biology","O","Genetics",2,30,763,r=>{var k=r(2,40);return["Two heterozygous (Aa) parents have "+4*k+" offspring. About how many are expected to show the dominant trait? (3 : 1 ratio)",3*k,"Three quarters show the dominant trait: "+4*k+" ÷ 4 × 3 = "+3*k+"."]});
+H("Economics","O","Total revenue",1,40,771,r=>{var p=r(2,50)*50,q=r(2,40);return["A trader sells "+q+" items at "+p+" FCFA each. What is the total revenue in FCFA?",p*q,"Total revenue = price × quantity = "+p+" × "+q+" = "+p*q+" FCFA."]});
+H("Economics","O","Profit",2,40,772,r=>{var c=r(10,90)*1000,pf=r(5,60)*1000;return["A firm earns "+(c+pf)+" FCFA in revenue and its total cost is "+c+" FCFA. What is its profit in FCFA?",pf,"Profit = revenue − cost = "+(c+pf)+" − "+c+" = "+pf+" FCFA."]});
+H("Economics","O","Average cost",2,40,773,r=>{var q=r(4,50),a=r(5,80)*10;return["The total cost of producing "+q+" units is "+a*q+" FCFA. What is the average cost per unit in FCFA?",a,"Average cost = total cost ÷ output = "+a*q+" ÷ "+q+" = "+a+" FCFA."]});
+H("Economics","O","Inflation",3,40,774,r=>{var p=[2,4,5,8,10,12,15,20,25][r(0,8)],b=100*r(1,50);return["The price of a basket of goods rises from "+b+" FCFA to "+b*(100+p)/100+" FCFA. What is the percentage increase?",p,"Increase = "+b*p/100+" ÷ "+b+" × 100 = "+p+"%."]});
+H("Economics","A","National income",3,40,775,r=>{var C=r(100,900),I=r(50,300),Gv=r(50,300),X=r(50,300),M=r(20,250);return["If C = "+C+", I = "+I+", G = "+Gv+", X = "+X+" and M = "+M+" (billion FCFA), what is GDP?",C+I+Gv+X-M,"GDP = C + I + G + (X − M) = "+(C+I+Gv+X-M)+" billion FCFA."]});
+H("Accounting","O","Gross profit",1,40,781,r=>{var s=r(20,200)*1000,c=r(5,19)*1000;return["Sales are "+s+" FCFA and the cost of sales is "+c+" FCFA. What is the gross profit in FCFA?",s-c,"Gross profit = sales − cost of sales = "+s+" − "+c+" = "+(s-c)+" FCFA."]});
+H("Accounting","O","Net profit",2,40,782,r=>{var g=r(50,300)*1000,e=r(5,49)*1000;return["Gross profit is "+g+" FCFA and expenses are "+e+" FCFA. What is the net profit in FCFA?",g-e,"Net profit = gross profit − expenses = "+g+" − "+e+" = "+(g-e)+" FCFA."]});
+H("Accounting","O","Depreciation",2,40,783,r=>{var y=r(2,10),d=r(5,90)*1000,sc=r(0,9)*10000;return["A machine costs "+(d*y+sc)+" FCFA, has a residual value of "+sc+" FCFA and lasts "+y+" years. What is the annual straight-line depreciation in FCFA?",d,"Depreciation = (cost − residual value) ÷ life = "+d*y+" ÷ "+y+" = "+d+" FCFA."]});
+H("Accounting","O","Mark-up",2,40,784,r=>{var c=r(5,100)*100,m=[10,20,25,50][r(0,3)];return["Goods costing "+c+" FCFA are sold at a mark-up of "+m+"%. What is the selling price in FCFA?",c*(100+m)/100,"Selling price = "+c+" × "+(100+m)+"/100 = "+c*(100+m)/100+" FCFA."]});
+H("Accounting","O","Capital",2,40,785,r=>{var o=r(100,900)*1000,p=r(10,200)*1000,d=r(5,50)*1000;return["Opening capital is "+o+" FCFA, net profit is "+p+" FCFA and drawings are "+d+" FCFA. What is the closing capital in FCFA?",o+p-d,"Closing capital = opening + profit − drawings = "+o+" + "+p+" − "+d+" = "+(o+p-d)+" FCFA."]});
+H("Geography","O","Map scale",2,40,791,r=>{var sc=[50000,100000,200000][r(0,2)],c=2*r(1,15);return["On a map with scale 1 : "+sc+", two towns are "+c+" cm apart. What is the real distance in km?",c*sc/100000,c+" cm × "+sc+" = "+c*sc+" cm = "+c*sc/100000+" km."]});
+H("Geography","O","Population density",2,40,792,r=>{var a=r(10,500),d=r(5,300);return["A region of "+a+" km² has "+a*d+" people. What is its population density in people per km²?",d,"Density = population ÷ area = "+a*d+" ÷ "+a+" = "+d+"."]});
+H("Geography","O","Natural increase",2,30,793,r=>{var b=r(20,50),d=r(5,19);return["A country has a birth rate of "+b+" and a death rate of "+d+" per 1000. What is the natural increase per 1000?",b-d,b+" − "+d+" = "+(b-d)+" per 1000."]});
+H("Geography","O","Time and longitude",3,30,794,r=>{var k=r(1,12);return["Two places are "+15*k+"° apart in longitude. What is the time difference in hours?",k,"The Earth turns 15° per hour: "+15*k+" ÷ 15 = "+k+" hours."]});
+H("ICT","L","Binary numbers",2,50,801,r=>{var n=r(5,63);return["What is the binary number "+n.toString(2)+" in denary (base 10)?",n,"Add the place values of the 1s to get "+n+"."]});
+H("ICT","L","Data storage",1,40,802,r=>{var k=r(2,40);return["How many KB are there in "+k+" MB? (1 MB = 1024 KB)",k*1024,k+" × 1024 = "+k*1024+" KB."]});
+H("Computer Science","O","Data transfer",2,40,803,r=>{var s=r(2,20),k=r(5,60);return["A file of "+s*k+" MB downloads at "+s+" MB/s. How many seconds does it take?",k,"Time = size ÷ speed = "+s*k+" ÷ "+s+" = "+k+" s."]});
+H("Statistics","O","Range",1,40,811,r=>{var a=[r(1,40),r(1,40),r(1,40),r(1,40),r(1,40)];return["Find the range of "+a.join(", ")+".",Math.max.apply(0,a)-Math.min.apply(0,a),"Range = largest − smallest = "+Math.max.apply(0,a)+" − "+Math.min.apply(0,a)+"."]});
+H("Statistics","O","Median",2,50,812,r=>{var a=[];while(a.length<5){var x=r(1,60);if(a.indexOf(x)<0)a.push(x)}var s=a.slice().sort(function(p,q){return p-q});return["Find the median of "+a.join(", ")+".",s[2],"In order: "+s.join(", ")+". The middle value is "+s[2]+"."]});
+H("Business Studies","O","Break-even",3,40,821,r=>{var v=r(5,40),m=r(2,20),q=r(10,200);return["Fixed costs are "+m*q*100+" FCFA. Each unit sells for "+(v+m)*100+" FCFA with variable cost "+v*100+" FCFA. How many units must be sold to break even?",q,"Break-even = fixed cost ÷ (price − variable cost) = "+m*q*100+" ÷ "+m*100+" = "+q+"."]});
+H("Commerce","O","Discount",2,40,822,r=>{var p=100*r(2,100),d=[5,10,20,25,50][r(0,4)];return["An item marked "+p+" FCFA is sold at a "+d+"% discount. What is the selling price in FCFA?",p*(100-d)/100,"Price = "+p+" × "+(100-d)+"/100 = "+p*(100-d)/100+" FCFA."]});
+
+if(BANK.length>2000)BANK.length=2000;
+})();
+</script>
 </body>
 </html>
