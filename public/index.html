@@ -596,7 +596,7 @@ document.addEventListener("click",function(e){var t=e.target.closest("[data-l],[
  else if(d.lc||d.ls){var arr=d.lc?user.ld:user.saved,k2=arr.indexOf(OPEN);if(k2>-1)arr.splice(k2,1);else arr.push(OPEN);save();renderLearn()}});
 
 /* AI TUTOR: real AI through the StudyMate server (no scripted answers) */
-var AI_FN="https://wxjigeyapxorktdmlthq.supabase.co/functions/v1/chat";
+var AI_FN="/api/chat";
 var AI_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4amlnZXlhcHhvcmt0ZG1sdGhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM0NzA3NzAsImV4cCI6MjEwOTA0Njc3MH0.aAKlkQJKldRIaKoPqI88LmdkRC_41iQm_iXZK6UTEmo";
 var AI_SYSTEM="You are Mate AI, the study buddy inside StudyMate for students in Cameroon (English and French; GCE, BEPC, Probatoire, Baccalauréat, university). Answer any question the student asks, on any subject or topic, whether school-related or general knowledge, maths, science, languages, history, coding, careers or life advice. Reply in the language the student writes in. Explain clearly and correctly, step by step when useful, with examples. If you are not sure, say so instead of guessing. Only decline requests that are unsafe or harmful.";
 var IDEAS=["Explain photosynthesis","Quiz me for GCE O Level Maths","Solve x² − 5x + 6 = 0 step by step","Write a short essay plan on pollution","Explique-moi la Révolution française","How do I start learning to code?"];
@@ -606,7 +606,7 @@ function say(t,c){var d=document.createElement("div");d.className="msg "+c;d.tex
 function fmt(t){return esc(t).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>")}
 function aiStream(msgs,onText){
   return fetch(AI_FN,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+AI_KEY,"apikey":AI_KEY},body:JSON.stringify({messages:msgs})}).then(function(r){
-    if(!r.ok)return r.json().catch(function(){return{}}).then(function(j){throw new Error(j.error||(r.status===404?"The AI service is not deployed yet (function “chat” not found).":"The AI service returned an error ("+r.status+"). Please try again."))});
+    if(!r.ok)return r.json().catch(function(){return{}}).then(function(j){throw new Error(j.error||(r.status===404?"The AI server was not found. Please try again in a minute.":"The AI service returned an error ("+r.status+"). Please try again."))});
     var rd=r.body.getReader(),dec=new TextDecoder(),buf="",full="";
     function pump(){return rd.read().then(function(x){
       if(x.done)return full;
@@ -616,7 +616,7 @@ function aiStream(msgs,onText){
       return pump()})}
     return pump()});
 }
-function aiErr(e){return e&&e.name==="TypeError"?"Can’t reach the AI service. Check your internet connection. If it still fails, the AI function “chat” has not been deployed in Supabase yet.":(e&&e.message)||"Something went wrong."}
+function aiErr(e){return e&&e.name==="TypeError"?"Can’t reach the AI service. Check your internet connection. The AI server may be waking up, so wait a minute and try again.":(e&&e.message)||"Something went wrong."}
 var CREATOR_EN=/\bwho\b.{0,25}\b(creat\w*|made|make|built|build|develop\w*|design\w*|program\w*|invent\w*|train\w*|own\w*|behind)\b.{0,25}\b(you|this|studymate|the\s+(app|site|website|tutor|ai))\b|\bwho(\s+is|'?s|\s+are)\s+(your|the)\s+(creator|creators|developer|developers|maker|makers|owner|owners|author|inventor)s?\b|\byour\s+(creator|creators|developer|developers|maker|makers)\b/i;
 var CREATOR_FR=/\bqui\s+(t['’]a|vous\s+a|a\s+(cr[ée]{1,2}|fait|con[çc]u|d[ée]velopp[ée]|programm[ée])\s+(ce|cet|cette|studymate|l['’]app|le\s+site))|\b(ton|votre)\s+(cr[ée]ateur|d[ée]veloppeur|concepteur|propri[ée]taire)/i;
 function creatorReply(t){if(CREATOR_EN.test(t))return"Itz Fortunate and his 2 friends.";if(CREATOR_FR.test(t))return"Itz Fortunate et ses 2 amis.";return null}
