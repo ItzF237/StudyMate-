@@ -1,0 +1,115 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<section id="sm-tutor">
+<style>
+#sm-tutor{--c:var(--primary,#2563eb);--bg:var(--surface,#fff);--tx:var(--text,#1f2937);--ln:#e5e7eb;font-family:inherit;color:var(--tx);display:flex;flex-direction:column;height:min(78vh,720px);max-width:900px;margin:0 auto;border:1px solid var(--ln);border-radius:14px;background:var(--bg);overflow:hidden}
+#sm-tutor .bar{display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--ln)}
+#sm-tutor .bar strong{flex:1}
+#sm-tutor button,#sm-tutor select{font:inherit}
+#sm-tutor .ghost{background:none;border:1px solid var(--ln);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--tx)}
+#sm-tutor .msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+#sm-tutor .m{max-width:85%;padding:10px 14px;border-radius:16px;line-height:1.55;word-wrap:break-word}
+#sm-tutor .m.user{align-self:flex-end;background:var(--c);color:#fff;border-bottom-right-radius:4px}
+#sm-tutor .m.assistant{align-self:flex-start;background:#f3f4f6;color:#111;border-bottom-left-radius:4px}
+#sm-tutor .m p{margin:0 0 8px}#sm-tutor .m p:last-of-type{margin:0}
+#sm-tutor .m pre{background:#111827;color:#f9fafb;padding:10px;border-radius:8px;overflow-x:auto;font-size:.85em}
+#sm-tutor .m code{font-family:ui-monospace,monospace}
+#sm-tutor .m img{max-width:160px;border-radius:8px;display:block;margin-bottom:6px}
+#sm-tutor .t{display:block;font-size:.7rem;opacity:.6;margin-top:4px}
+#sm-tutor .err{align-self:center;color:#b91c1c;background:#fef2f2;border-radius:8px;padding:8px 12px;font-size:.9rem}
+#sm-tutor .dots span{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:#9ca3af;animation:smb 1.2s infinite}
+#sm-tutor .dots span:nth-child(2){animation-delay:.2s}#sm-tutor .dots span:nth-child(3){animation-delay:.4s}
+@keyframes smb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+@media(prefers-reduced-motion:reduce){#sm-tutor .dots span{animation:none}#sm-tutor .msgs{scroll-behavior:auto}}
+#sm-tutor .chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+#sm-tutor .chips button{border:1px solid var(--ln);background:none;border-radius:99px;padding:5px 11px;cursor:pointer;color:var(--tx);font-size:.85rem}
+#sm-tutor .in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--ln);align-items:flex-end}
+#sm-tutor textarea{flex:1;resize:none;max-height:140px;border:1px solid var(--ln);border-radius:12px;padding:10px;font:inherit;font-size:16px;color:var(--tx);background:var(--bg)}
+#sm-tutor .send{background:var(--c);color:#fff;border:0;border-radius:12px;padding:10px 16px;cursor:pointer}
+#sm-tutor .send:disabled{opacity:.5}
+#sm-tutor .prev{padding:0 12px 6px;font-size:.8rem}
+#sm-tutor :focus-visible{outline:2px solid var(--c);outline-offset:2px}
+</style>
+<div class="bar"><strong>StudyMate AI Tutor</strong>
+  <select id="smHist" aria-label="Conversation history"></select>
+  <button class="ghost" id="smNew">New chat</button>
+  <button class="ghost" id="smClear">Clear</button></div>
+<div class="msgs" id="smMsgs" aria-live="polite"></div>
+<div class="chips" id="smChips"></div>
+<div class="prev" id="smPrev"></div>
+<div class="in">
+  <label class="ghost" style="cursor:pointer" title="Attach a photo of a question or notes">📎<input type="file" id="smFile" accept="image/*" hidden></label>
+  <textarea id="smText" rows="1" placeholder="Ask me anything…" aria-label="Message"></textarea>
+  <button class="send" id="smSend">Send</button></div>
+<script>
+(()=>{
+const API='';
+const $=id=>document.getElementById(id);
+const KEY='sm_tutor_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'null')||{cur:null,chats:{}};
+let pending=null,busy=false;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){
+  Object.values(db.chats).forEach(c=>c.msgs.forEach(m=>delete m.images));try{localStorage.setItem(KEY,JSON.stringify(db))}catch(_){}}};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function md(t){
+  const parts=esc(t).split(/```(?:\w*\n)?/);
+  return parts.map((p,i)=>i%2?`<pre><code>${p}</code></pre>`:
+    p.split(/\n{2,}/).map(x=>'<p>'+x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')+'</p>').join('')).join('');}
+const time=ts=>new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+function chat(){ if(!db.cur||!db.chats[db.cur]){newChat();} return db.chats[db.cur]; }
+function newChat(){const id='c'+Date.now();db.chats[id]={title:'New chat',msgs:[]};db.cur=id;save();render();}
+function bubble(m){
+  const d=document.createElement('div');d.className='m '+m.role;
+  d.innerHTML=(m.images||[]).map(i=>`<img alt="Attached image" src="data:${i.media_type};base64,${i.data}">`).join('')+
+    `<div class="b">${md(m.text||'')}</div><span class="t">${time(m.ts)}</span>`;
+  $('smMsgs').appendChild(d);return d;}
+const bottom=()=>{$('smMsgs').scrollTop=$('smMsgs').scrollHeight};
+function render(){
+  const c=chat();$('smMsgs').innerHTML='';
+  if(!c.msgs.length){const w=document.createElement('div');w.className='m assistant';
+    w.innerHTML=md("Hi! I'm your StudyMate tutor. Ask me anything: homework, exam revision, coding, or just chat. What would you like to do today?");$('smMsgs').appendChild(w);}
+  c.msgs.forEach(bubble);bottom();
+  $('smHist').innerHTML=Object.entries(db.chats).reverse().map(([id,x])=>`<option value="${id}" ${id===db.cur?'selected':''}>${esc(x.title)}</option>`).join('');
+  $('smChips').innerHTML='';
+  if(!c.msgs.length)['Explain photosynthesis','Quiz me for GCE O/L Maths','Help me understand binary numbers','Make revision notes on Newton\'s laws'].forEach(q=>{
+    const b=document.createElement('button');b.textContent=q;b.onclick=()=>{$('smText').value=q;send()};$('smChips').appendChild(b);});
+}
+function showErr(t){const e=document.createElement('div');e.className='err';e.textContent=t;$('smMsgs').appendChild(e);bottom();}
+async function send(){
+  const text=$('smText').value.trim();if(busy||(!text&&!pending))return;
+  const c=chat();const um={role:'user',text,ts:Date.now()};if(pending)um.images=[pending];
+  c.msgs.push(um);if(c.title==='New chat')c.title=(text||'Image question').slice(0,40);
+  $('smText').value='';$('smText').style.height='auto';pending=null;$('smPrev').textContent='';
+  save();render();busy=true;$('smSend').disabled=true;
+  const am={role:'assistant',text:'',ts:Date.now()};
+  const el=bubble(am);el.querySelector('.b').innerHTML='<span class="dots"><span></span><span></span><span></span></span>';bottom();
+  try{
+    const r=await fetch(API+'/api/chat',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({messages:c.msgs.slice(-30).map(m=>({role:m.role,text:m.text,images:m.images}))})});
+    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error(j.error||'Something went wrong. Please try again.');}
+    const rd=r.body.getReader(),dec=new TextDecoder();let buf='';
+    while(true){const {done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop();
+      for(const l of lines){if(!l.startsWith('data:'))continue;
+        try{const ev=JSON.parse(l.slice(5));
+          if(ev.type==='content_block_delta'&&ev.delta.type==='text_delta'){am.text+=ev.delta.text;el.querySelector('.b').innerHTML=md(am.text);bottom();}
+          if(ev.type==='error')throw new Error('The AI stopped unexpectedly.');}catch(e){if(e.message.startsWith('The AI'))throw e;}}}
+    if(!am.text)throw new Error('The AI sent an empty reply. Please try again.');
+    c.msgs.push(am);save();
+  }catch(e){el.remove();if(am.text){c.msgs.push(am);save();render();}
+    showErr(e.name==='TypeError'?'Network problem. Check your connection and try again.':e.message);}
+  busy=false;$('smSend').disabled=false;$('smText').focus();
+}
+$('smSend').onclick=send;
+$('smText').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+$('smText').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,140)+'px';});
+$('smNew').onclick=newChat;
+$('smClear').onclick=()=>{if(confirm('Clear this conversation?')){chat().msgs=[];chat().title='New chat';save();render();}};
+$('smHist').onchange=e=>{db.cur=e.target.value;save();render();};
+$('smFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+  if(!/^image\/(jpeg|png|gif|webp)$/.test(f.type)||f.size>3.5e6)return showErr('Please attach a JPG, PNG, GIF or WebP image under 3.5 MB.');
+  const fr=new FileReader();fr.onload=()=>{pending={media_type:f.type,data:fr.result.split(',')[1]};$('smPrev').textContent='📎 '+f.name+' attached';};fr.readAsDataURL(f);};
+fetch(API+'/api/health').then(r=>r.json()).then(h=>{if(!h.configured)showErr('AI is not set up yet: the site owner needs to add the API key on the server.')}).catch(()=>showErr('Cannot reach the tutor server.'));
+render();
+})();
+</script>
+</section>
